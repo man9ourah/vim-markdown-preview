@@ -114,8 +114,9 @@ endfunction
 "Renders html locally and displays images
 function! Vim_Markdown_Preview_Local()
   let b:curr_file = expand('%:p')
+  let b:title = expand('%:p:h') . ": " . expand("%")
   if g:vim_markdown_preview_github == 1
-    call system("grip " . shellescape(b:curr_file) . " --export vim-markdown-preview.html --title " . expand("%"))
+    call system("grip " . shellescape(b:curr_file) . " --export vim-markdown-preview.html --title " . shellescape(b:title))
   elseif g:vim_markdown_preview_perl == 1
     call system('Markdown.pl "' . b:curr_file . '" > /tmp/vim-markdown-preview.html')
   elseif g:vim_markdown_preview_pandoc == 1
@@ -129,7 +130,7 @@ function! Vim_Markdown_Preview_Local()
 
   if g:vmp_osname == 'unix'
     let curr_wid = system('xdotool getwindowfocus')
-    let chrome_wid = system("xdotool search --name " . shellescape(expand("%") ." - " . g:vim_markdown_preview_browser))
+    let chrome_wid = system("xdotool search --name " . shellescape(b:title ." - " . g:vim_markdown_preview_browser))
     if !chrome_wid
       if g:vim_markdown_preview_use_xdg_open == 1
         call system('xdg-open vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
