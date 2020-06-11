@@ -114,9 +114,8 @@ endfunction
 "Renders html locally and displays images
 function! Vim_Markdown_Preview_Local()
   let b:curr_file = expand('%:p')
-
   if g:vim_markdown_preview_github == 1
-    call system('grip "' . b:curr_file . '" --export vim-markdown-preview.html --title vim-markdown-preview.html')
+    call system("grip " . shellescape(b:curr_file) . " --export vim-markdown-preview.html --title " . expand("%"))
   elseif g:vim_markdown_preview_perl == 1
     call system('Markdown.pl "' . b:curr_file . '" > /tmp/vim-markdown-preview.html')
   elseif g:vim_markdown_preview_pandoc == 1
@@ -129,20 +128,20 @@ function! Vim_Markdown_Preview_Local()
   endif
 
   if g:vmp_osname == 'unix'
-    let chrome_wid = system("xdotool search --name vim-markdown-preview.html - " . g:vim_markdown_preview_browser . "'")
+    let curr_wid = system('xdotool getwindowfocus')
+    let chrome_wid = system("xdotool search --name " . shellescape(expand("%") ." - " . g:vim_markdown_preview_browser))
     if !chrome_wid
       if g:vim_markdown_preview_use_xdg_open == 1
         call system('xdg-open vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
       else
-        call system('see vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
+        call system('see vim-markdown-preview.html 1>/dev/null 2>/dev/null')
       endif
     else
-      let curr_wid = system('xdotool getwindowfocus')
       call system('xdotool windowmap ' . chrome_wid)
       call system('xdotool windowactivate ' . chrome_wid)
-      call system("xdotool key 'ctrl+r'")
-      call system('xdotool windowactivate ' . curr_wid)
+      call system("xdotool key F5")
     endif
+    call system('xdotool windowactivate ' . curr_wid)
   endif
 
   if g:vmp_osname == 'mac'
