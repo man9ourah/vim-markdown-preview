@@ -58,6 +58,10 @@ if !exists("g:vim_markdown_preview_hotkey")
     let g:vim_markdown_preview_hotkey='<C-p>'
 endif
 
+if !exists("g:vim_markdown_preview_state")
+    let g:vim_markdown_preview_state = -1
+endif 
+
 function! Vim_Markdown_Preview()
   let b:curr_file = expand('%:p')
 
@@ -113,6 +117,9 @@ endfunction
 
 "Renders html locally and displays images
 function! Vim_Markdown_Preview_Local()
+  if g:vim_markdown_preview_state == -1
+    return
+  endif
   let b:curr_file = expand('%:p')
   let b:title = expand('%:p:h') . ": " . expand("%")
   if g:vim_markdown_preview_github == 1
@@ -178,3 +185,4 @@ elseif g:vim_markdown_preview_toggle == 3
   "Automatically call Vim_Markdown_Preview() on buffer write
   autocmd BufWritePost *.markdown,*.md :call Vim_Markdown_Preview()
 endif
+command MDPrevToggle let g:vim_markdown_preview_state *= -1
