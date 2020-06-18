@@ -142,7 +142,7 @@ function! Vim_Markdown_Preview_Local()
       if g:vim_markdown_preview_use_xdg_open == 1
         call system('xdg-open vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
       else
-        call system('see vim-markdown-preview.html 1>/dev/null 2>/dev/null')
+        call system('see vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
       endif
     else
       call system('xdotool windowmap ' . chrome_wid)
@@ -166,8 +166,7 @@ function! Vim_Markdown_Preview_Local()
   endif
 
   if g:vim_markdown_preview_temp_file == 1
-    exec 'sleep ' . g:vim_markdown_preview_sleep
-    call system('rm vim-markdown-preview.html')
+    !(sleep 1 && rm vim-markdown-preview.html) &
   endif
 endfunction
 
