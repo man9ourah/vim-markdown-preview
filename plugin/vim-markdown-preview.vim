@@ -5,11 +5,11 @@
 let s:vim_markdown_preview_state = -1
 
 function! g:AsyncMDCallback(title, curr_wid)
-    let chrome_wid = system("xdotool search --name " . a:title)
+    let chrome_wid = trim(system("xdotool search --name '" . a:title . "'"))
     if !chrome_wid
         call system("see vim-markdown-preview.html 1>/dev/null 2>/dev/null && xdotool windowactivate " . a:curr_wid)
     else
-        call system("xdotool search --name " . a:title . " windowactivate --sync %1 key F5 windowactivate " . a:curr_wid)
+        call system("xdotool windowactivate --sync " . chrome_wid . " key F5 windowactivate " . a:curr_wid ." ")
     endif
 
     silent exec "!(sleep 1 && rm vim-markdown-preview.html) &"
