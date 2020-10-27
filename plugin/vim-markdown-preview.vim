@@ -1,6 +1,7 @@
 "============================================================
 "                    Vim Markdown Preview
 "   git@github.com:JamshedVesuna/vim-markdown-preview.git
+"   This fork: Mansour Alharthi
 "============================================================
 let s:vim_markdown_preview_state = -1
 

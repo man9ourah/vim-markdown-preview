@@ -1,10 +1,7 @@
 **Minor Changes** from forked repo to make it work with Firefox in Ubunut 18.04
 with the following options: 
 ```vim
-let vim_markdown_preview_toggle=2
-let vim_markdown_preview_github=1
-let vim_markdown_preview_browser='Mozilla Firefox'
-let vim_markdown_preview_temp_file=1
+let vim_markdown_preview_browser='Nightly'
 ```
 
 Vim Markdown Preview
