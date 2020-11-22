@@ -29,7 +29,7 @@ function! Vim_Markdown_Preview_Local()
     let cmd =  "grip " . shellescape(b:curr_file) . " --export vim-markdown-preview.html --title " . shellescape(b:title)
 
     call asyncrun#run("",
-                \ {"post": "call g:AsyncMDCallback(" . shellescape(b:title ." - " . g:vim_markdown_preview_browser) . ", '" . curr_wid . "')"},
+                \ {"post": "call g:AsyncMDCallback(" . shellescape(b:title ." — " . g:vim_markdown_preview_browser) . ", '" . curr_wid . "')"},
                 \ cmd)
  
 endfunction
